@@ -12,7 +12,8 @@ public class Cars extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
         request.setAttribute("numberOfFreeParkingSpots", 10);
-        request.getRequestDispatcher("/WEB-INF/pages/cars.jsp").forward(request,response);
+        request.getRequestDispatcher("/WEB-INF/pages/cars.jsp").forward(request, response);
+
 
     }
 
