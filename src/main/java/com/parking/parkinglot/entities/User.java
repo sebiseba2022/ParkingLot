@@ -22,17 +22,6 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "car_id")
-    private Car car;
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
 
     public String getPassword() {
         return password;
