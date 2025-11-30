@@ -6,10 +6,11 @@
     <persistence-unit name="default" transaction-type="JTA">
         <jta-data-source>jdbc/ParkingLotResource</jta-data-source>
 
+        <class>com.parking.parkinglot.entities.Car</class>
+        <class>com.parking.parkinglot.entities.User</class>
+
         <properties>
-
             <property name="jakarta.persistence.schema-generation.database.action" value="create-or-extend-tables" />
-
         </properties>
     </persistence-unit>
 

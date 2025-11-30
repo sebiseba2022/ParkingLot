@@ -1,7 +1,6 @@
 package com.parking.parkinglot.ejb;
 
 import com.parking.parkinglot.common.UserDto;
-import com.parking.parkinglot.entities.Car;
 import com.parking.parkinglot.entities.User;
 import jakarta.ejb.EJBException;
 import jakarta.ejb.Stateless;
@@ -20,12 +19,12 @@ public class UsersBean {
     @PersistenceContext
     EntityManager entityManager;
 
-  public static List<UserDto> findAllUsers(){
+  public List<UserDto> findAllUsers(){
       LOG.info("findAllUsers");
       try{
-          TypedQuery<Car> typedQuery = entityManager.createQuery("SELECT u FROM User u", User.class);
-            List<Car> cars = typedQuery.getResultList();
-            return copyUsersToDto(cars);
+          TypedQuery<User> typedQuery = entityManager.createQuery("SELECT u FROM User u", User.class);
+            List<User> users = typedQuery.getResultList();
+            return copyUsersToDto(users);
       }
       catch(Exception ex){
           throw new EJBException(ex);
@@ -33,10 +32,13 @@ public class UsersBean {
 
   }
 
-    private List<UserDto> copyUsersToDto(List<Car> cars) {
+    private List<UserDto> copyUsersToDto(List<User> users) {
         List<UserDto> userDtos = new ArrayList<>();
         for (User user : users) {
-            userDtos.add(new UserDto(user));
+            UserDto userDto = new UserDto(
+                    user.getId(), user.getUsername(), user.getEmail()
+            );
+            userDtos.add(userDto);
         }
         return userDtos;
 

@@ -1,10 +1,7 @@
 package com.parking.parkinglot.ejb;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
 import com.parking.parkinglot.common.CarDto;
 import com.parking.parkinglot.entities.Car;
 import jakarta.ejb.EJBException;
@@ -12,6 +9,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+
 
 @Stateless
 public class CarsBean {
@@ -36,10 +34,22 @@ public class CarsBean {
     private List<CarDto> copyCarsToDto(List<Car> cars) {
         List<CarDto> carDtos = new ArrayList<>();
         for (Car car : cars) {
-            carDtos.add(new CarDto(car));
+           CarDto carDto = new CarDto(car.getId(), car.getLicensePlate(), car.getParkingSpot(), car.getOwner().getUsername());
+           carDtos.add(carDto);
         }
         return carDtos;
+    }
 
+    public void createCar(String licensePlate, String parkingSpot, Long ownerId) {
+        LOG.info("createCar");
+        Car car = new Car();
+        car.setLicensePlate(licensePlate);
+        car.setParkingSpot(parkingSpot);
+        
+        com.parking.parkinglot.entities.User owner = entityManager.find(com.parking.parkinglot.entities.User.class, ownerId);
+        car.setOwner(owner);
+        
+        entityManager.persist(car);
     }
 
 }
