@@ -19,9 +19,21 @@ eq '/about.jsp' ? ' active' : ''}" aria-current="page" href="${pageContext.reque
                     </li>
                 </ul>a
                <ul class="navbar-nav">
-                   <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/Login">Login</a>
-                    </li>
+                   <c:choose>
+                       <c:when test="${pageContext.request.getSession(false) != null && pageContext.request.getSession(false).getAttribute('username') != null}">
+                           <li class="nav-item">
+                               <span class="navbar-text me-3">Welcome, ${pageContext.request.getSession(false).getAttribute('username')}</span>
+                           </li>
+                           <li class="nav-item">
+                               <a class="nav-link" href="${pageContext.request.contextPath}/Logout">Logout</a>
+                           </li>
+                       </c:when>
+                       <c:otherwise>
+                           <li class="nav-item">
+                               <a class="nav-link" href="${pageContext.request.contextPath}/Login">Login</a>
+                           </li>
+                       </c:otherwise>
+                   </c:choose>
                </ul>
             </div>
         </div>
