@@ -3,24 +3,41 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <t:pageTemplate pageTitle="Cars">
 
-
 <h1>Cars</h1>
-    <a class="btn btn-primary btn-lg" type="submit" href="${pageContext.request.contextPath}/AddCar">Add cars</a>
-<div class="container text-center">
-    <c:forEach var="car" items="${cars}">
-        <div class="row">
-            <div class="col">
-                ${car.licensePlate}
-            </div>
-            <div class="col">
-                ${car.parkingSpot}
-            </div>
-            <div class="col">
-                ${car.ownerName}
-            </div>
+<a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/AddCar">Add cars</a>
+
+<div class="container mt-4">
+    <form method="post" action="${pageContext.request.contextPath}/Cars">
+        <div class="row fw-bold mb-3">
+            <div class="col-1">Select</div>
+            <div class="col">License Plate</div>
+            <div class="col">Parking Spot</div>
+            <div class="col">Owner</div>
+            <div class="col">Actions</div>
         </div>
-    </c:forEach>
+        <c:forEach var="car" items="${cars}">
+            <div class="row mb-2 align-items-center">
+                <div class="col-1">
+                    <input type="checkbox" name="car_ids" value="${car.id}" class="form-check-input">
+                </div>
+                <div class="col">
+                    ${car.licensePlate}
+                </div>
+                <div class="col">
+                    ${car.parkingSpot}
+                </div>
+                <div class="col">
+                    ${car.ownerName}
+                </div>
+                <div class="col">
+                    <a href="${pageContext.request.contextPath}/EditCar?id=${car.id}" class="btn btn-secondary btn-sm">Edit Car</a>
+                </div>
+            </div>
+        </c:forEach>
+        <button type="submit" class="btn btn-danger mt-3">Delete Selected Cars</button>
+    </form>
 </div>
-    <h5>Free parking spots: ${numberOfFreeParkingSpots}</h5>
+
+<h5 class="mt-4">Free parking spots: ${numberOfFreeParkingSpots}</h5>
 
 </t:pageTemplate>

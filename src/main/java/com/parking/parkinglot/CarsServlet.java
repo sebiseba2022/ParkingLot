@@ -8,6 +8,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "CarsServlet", value = "/Cars")
@@ -26,5 +27,27 @@ public class CarsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Extract car_ids from checkboxes
+        String[] carIdsArray = request.getParameterValues("car_ids");
+
+        if (carIdsArray != null && carIdsArray.length > 0) {
+            // Convert String array to Long List
+            List<Long> carIds = new ArrayList<>();
+            for (String carIdStr : carIdsArray) {
+                try {
+                    carIds.add(Long.valueOf(carIdStr));
+                } catch (NumberFormatException e) {
+                    // Skip invalid IDs
+                }
+            }
+
+            // Delete selected cars
+            if (!carIds.isEmpty()) {
+                carsBean.deleteCarsByIds(carIds);
+            }
+        }
+
+        // Redirect to the same page to refresh the list
+        response.sendRedirect(request.getContextPath() + "/Cars");
     }
 }
