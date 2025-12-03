@@ -12,42 +12,14 @@
     </c:if>
 
     <div class="container" style="max-width: 500px;">
-        <form class="needs-validation" method="post" action="${pageContext.request.contextPath}/Login" novalidate>
-
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
-                <div class="invalid-feedback">
-                    Please provide your username.
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                <div class="invalid-feedback">
-                    Please provide your password.
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+        <form class="form=signin" method="post" action="j_security_check">
+            <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" id="username" name="j_username" class="form-control" placeholder="Username" required autofocus>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="j_password" class="form-control" placeholder="Password" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
     </div>
 
-    <script>
-        (function () {
-            'use strict'
-            var forms = document.querySelectorAll('.needs-validation')
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-        })()
-    </script>
 </t:pageTemplate>

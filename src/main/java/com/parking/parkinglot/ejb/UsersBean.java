@@ -47,12 +47,12 @@ public class UsersBean {
         LOG.info("authenticate: " + username);
         try {
             TypedQuery<User> typedQuery = entityManager.createQuery(
-                "SELECT u FROM User u WHERE u.username = :username AND u.password = :password", 
+                "SELECT u FROM User u WHERE u.username = :username AND u.password = :password",
                 User.class
             );
             typedQuery.setParameter("username", username);
             typedQuery.setParameter("password", password);
-            
+
             List<User> users = typedQuery.getResultList();
             return !users.isEmpty();
         } catch (Exception ex) {

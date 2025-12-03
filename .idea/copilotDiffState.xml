@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/src/main/java/com/parking/parkinglot/ejb/StartupBean.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/parking/parkinglot/ejb/StartupBean.java" />
+              <option name="originalContent" value="&#10;" />
+              <option name="updatedContent" value="package com.parking.parkinglot.ejb;&#10;&#10;import com.parking.parkinglot.entities.User;&#10;import com.parking.parkinglot.entities.UserGroup;&#10;import jakarta.annotation.PostConstruct;&#10;import jakarta.ejb.Singleton;&#10;import jakarta.ejb.Startup;&#10;import jakarta.persistence.EntityManager;&#10;import jakarta.persistence.PersistenceContext;&#10;import jakarta.persistence.TypedQuery;&#10;import java.util.logging.Logger;&#10;&#10;@Singleton&#10;@Startup&#10;public class StartupBean {&#10;&#10;    private static final Logger LOG = Logger.getLogger(StartupBean.class.getName());&#10;&#10;    @PersistenceContext&#10;    private EntityManager entityManager;&#10;&#10;    @PostConstruct&#10;    public void init() {&#10;        LOG.info(&quot;StartupBean initializing test data...&quot;);&#10;        initializeTestUsers();&#10;    }&#10;&#10;    private void initializeTestUsers() {&#10;        try {&#10;            // Check if test user already exists&#10;            TypedQuery&lt;User&gt; query = entityManager.createQuery(&#10;                &quot;SELECT u FROM User u WHERE u.username = 'testuser'&quot;,&#10;                User.class&#10;            );&#10;            &#10;            if (query.getResultList().isEmpty()) {&#10;                // Create test user&#10;                User testUser = new User();&#10;                testUser.setUsername(&quot;testuser&quot;);&#10;                testUser.setPassword(&quot;password123&quot;);&#10;                testUser.setEmail(&quot;testuser@example.com&quot;);&#10;&#10;                // Create UserGroup with WRITE_CARS permission&#10;                UserGroup writeGroup = new UserGroup();&#10;                writeGroup.setUsername(&quot;testuser&quot;);&#10;                writeGroup.setUserGroup(&quot;WRITE_CARS&quot;);&#10;&#10;                testUser.getUserGroups().add(writeGroup);&#10;&#10;                entityManager.persist(testUser);&#10;                LOG.info(&quot;Test user 'testuser' created successfully&quot;);&#10;            }&#10;        } catch (Exception ex) {&#10;            LOG.severe(&quot;Error initializing test data: &quot; + ex.getMessage());&#10;            ex.printStackTrace();&#10;        }&#10;    }&#10;}&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

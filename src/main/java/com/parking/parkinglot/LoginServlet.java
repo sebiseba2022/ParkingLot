@@ -24,31 +24,33 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        // read credentials
+        String username = request.getParameter("j_username");
+        String password = request.getParameter("j_password");
 
-        if (username == null || username.isBlank() || password == null || password.isBlank()) {
-            request.setAttribute("error", "Username and password are required!");
+        if (username == null || username.trim().isEmpty() || password == null || password.isEmpty()) {
+            request.setAttribute("error", "Username and password are required.");
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
             return;
         }
 
+        boolean ok;
         try {
-            boolean authenticated = usersBean.authenticate(username.trim(), password.trim());
-
-            if (authenticated) {
-                // Create session and store username
-                HttpSession session = request.getSession();
-                session.setAttribute("username", username.trim());
-
-                // Redirect to Cars page
-                response.sendRedirect(request.getContextPath() + "/Cars");
-            } else {
-                request.setAttribute("error", "Invalid username or password!");
-                request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
-            }
+            ok = usersBean.authenticate(username.trim(), password);
         } catch (Exception ex) {
-            request.setAttribute("error", "Login error: " + ex.getMessage());
+            // forward with generic error to avoid leaking internals
+            request.setAttribute("error", "Authentication failed (server error).");
+            request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+            return;
+        }
+
+        if (ok) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("username", username.trim());
+            // redirect to application root (menu.jsp will now show Welcome)
+            response.sendRedirect(request.getContextPath() + "/");
+        } else {
+            request.setAttribute("error", "Username or password incorrect");
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
         }
     }
