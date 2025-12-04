@@ -2,6 +2,7 @@ package com.parking.parkinglot.ejb;
 
 import com.parking.parkinglot.common.UserDto;
 import com.parking.parkinglot.entities.User;
+import com.parking.parkinglot.entities.UserGroup;
 import jakarta.ejb.EJBException;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -55,6 +56,66 @@ public class UsersBean {
 
             List<User> users = typedQuery.getResultList();
             return !users.isEmpty();
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+    }
+
+    public void grantPermission(String username, String permission) {
+        LOG.info("grantPermission: " + username + " - " + permission);
+        try {
+            // Check if permission already exists
+            TypedQuery<UserGroup> query = entityManager.createQuery(
+                "SELECT ug FROM UserGroup ug WHERE ug.username = :username AND ug.userGroup = :userGroup",
+                UserGroup.class
+            );
+            query.setParameter("username", username);
+            query.setParameter("userGroup", permission);
+
+            if (query.getResultList().isEmpty()) {
+                UserGroup userGroup = new UserGroup();
+                userGroup.setUsername(username);
+                userGroup.setUserGroup(permission);
+                entityManager.persist(userGroup);
+            }
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+    }
+
+    public void revokePermission(String username, String permission) {
+        LOG.info("revokePermission: " + username + " - " + permission);
+        try {
+            TypedQuery<UserGroup> query = entityManager.createQuery(
+                "SELECT ug FROM UserGroup ug WHERE ug.username = :username AND ug.userGroup = :userGroup",
+                UserGroup.class
+            );
+            query.setParameter("username", username);
+            query.setParameter("userGroup", permission);
+
+            List<UserGroup> results = query.getResultList();
+            for (UserGroup ug : results) {
+                entityManager.remove(ug);
+            }
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+    }
+
+    public List<String> getUserPermissions(String username) {
+        LOG.info("getUserPermissions: " + username);
+        try {
+            TypedQuery<UserGroup> query = entityManager.createQuery(
+                "SELECT ug FROM UserGroup ug WHERE ug.username = :username",
+                UserGroup.class
+            );
+            query.setParameter("username", username);
+
+            List<String> permissions = new ArrayList<>();
+            for (UserGroup ug : query.getResultList()) {
+                permissions.add(ug.getUserGroup());
+            }
+            return permissions;
         } catch (Exception ex) {
             throw new EJBException(ex);
         }

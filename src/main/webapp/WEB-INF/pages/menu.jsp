@@ -19,15 +19,15 @@
                     <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
 
                     <li class="nav-item">
-                        <c:if test="${pageContext.request.isUserInRole('READ_CARS')}">
-                            <a class="nav-link ${pageContext.request.requestURI.substring(pageContext.request.requestURI.lastIndexOf("/"))
+                    <%--    <c:if test="${pageContext.request.isUserInRole('READ_CARS')}"> --%>
+                        <a class="nav-link ${pageContext.request.requestURI.substring(pageContext.request.requestURI.lastIndexOf("/"))
                     eq '/Cars' ? ' active' : ''}" href="${pageContext.request.contextPath}/Cars">Cars</a>
-                        </c:if>
+                   <%--     </c:if> --%>
                     </li>
                     <li class="nav-item">
                         <c:if test="${pageContext.request.isUserInRole('READ_USERS')}">
                             <a class="nav-link ${pageContext.request.requestURI.substring(pageContext.request.requestURI.lastIndexOf("/"))
-                    eq '/Users' ? ' active' : ''}" href="${pageContext.request.contextPath}/Users">Users</a>
+                    eq '/User' ? ' active' : ''}" href="${pageContext.request.contextPath}/User">User Permissions</a>
                         </c:if>
                     </li>
 

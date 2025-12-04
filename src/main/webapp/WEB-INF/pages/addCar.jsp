@@ -47,22 +47,5 @@
             <a href="${pageContext.request.contextPath}/Cars" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
-
-    <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function () {
-            'use strict'
-            var forms = document.querySelectorAll('.needs-validation')
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-        })()
-    </script>
+    <script src="${pageContext.request.contextPath}/scripts/form-validation.js"></script>
 </t:pageTemplate>
