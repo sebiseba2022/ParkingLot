@@ -16,9 +16,8 @@ public class Car {
     @Column(name = "license_plate")
     private String licensePlate;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "owner_id", nullable = false)
-    private User owner;
+    @ManyToOne
+   private User owner;
 
     public User getOwner() {
         return owner;

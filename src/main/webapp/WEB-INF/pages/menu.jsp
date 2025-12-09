@@ -19,10 +19,10 @@
                     <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
 
                     <li class="nav-item">
-                    <%--    <c:if test="${pageContext.request.isUserInRole('READ_CARS')}"> --%>
+                     <c:if test="${pageContext.request.isUserInRole('READ_CARS')}">
                         <a class="nav-link ${pageContext.request.requestURI.substring(pageContext.request.requestURI.lastIndexOf("/"))
                     eq '/Cars' ? ' active' : ''}" href="${pageContext.request.contextPath}/Cars">Cars</a>
-                   <%--     </c:if> --%>
+                       </c:if>
                     </li>
                     <li class="nav-item">
                         <c:if test="${pageContext.request.isUserInRole('READ_USERS')}">
@@ -43,6 +43,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/Login">Login</a>
                         </c:when>
                         <c:otherwise>
+
                             <a class="nav-link" href="${pageContext.request.contextPath}/Logout">Logout</a>
                         </c:otherwise>
                     </c:choose>

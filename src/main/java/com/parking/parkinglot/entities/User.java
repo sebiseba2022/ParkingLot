@@ -30,9 +30,6 @@ public class User {
     @OneToMany(mappedBy = "owner", orphanRemoval = true)
     private Set<Car> cars = new LinkedHashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "username", referencedColumnName = "username")
-    private Set<UserGroup> userGroups = new LinkedHashSet<>();
 
     public Set<Car> getCars() {
         return cars;
@@ -42,13 +39,6 @@ public class User {
         this.cars = cars;
     }
 
-    public Set<UserGroup> getUserGroups() {
-        return userGroups;
-    }
-
-    public void setUserGroups(Set<UserGroup> userGroups) {
-        this.userGroups = userGroups;
-    }
 
     public void setPassword(String password) {
         this.password = password;
