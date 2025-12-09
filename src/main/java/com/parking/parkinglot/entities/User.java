@@ -1,51 +1,44 @@
 package com.parking.parkinglot.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotNull(message = "Password is required")
-    @Size(min = 6, max = 100, message = "Password must be at least 6 characters")
-    @Column(name = "password", nullable = false, length = 100)
-    private String password;
-
-    @NotNull(message = "Email is required")
-    @Email(message = "Email must be valid")
-    @Size(max = 100, message = "Email must not exceed 100 characters")
-    @Column(name = "email", nullable = false, length = 100, unique = true)
-    private String email;
-
-    @NotNull(message = "Username is required")
-    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
-    @Column(name = "username", nullable = false, length = 50, unique = true)
+    @Column(name = "username")
     private String username;
 
-    @OneToMany(mappedBy = "owner", orphanRemoval = true)
-    private List<Car> cars = new ArrayList<>();
+    @Column(name = "password")
+    private String password;
 
-    public List<Car> getCars() {
-        return cars;
-    }
+    @Column(name = "email")
+    private String email;
 
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
-    }
 
     public String getPassword() {
         return password;
     }
+
+    @OneToMany(mappedBy = "owner", orphanRemoval = true)
+    private Set<Car> cars = new LinkedHashSet<>();
+
+
+    public Set<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(Set<Car> cars) {
+        this.cars = cars;
+    }
+
 
     public void setPassword(String password) {
         this.password = password;
@@ -72,6 +65,7 @@ public class User {
     }
 
     public void setId(Long id) {
-        this.id=id;
-}
+        this.id = id;
+    }
+
 }
