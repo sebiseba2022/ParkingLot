@@ -1,8 +1,3 @@
-<footer>
-    <p style="margin-top: auto;
-      text-align: center;
-      padding: 10px;
-      background-color: #f0f0f0;
-      font-size: 14px;
-">&copy; 2025 Parking Lot Management System. All rights reserved to Chitu Sebastian.</p>
-</footer>
+<footer class="container"> <p class="float-end">
+</p> <p>© 2022 Alexandru Dorobantiu</a>
+</p> </footer>

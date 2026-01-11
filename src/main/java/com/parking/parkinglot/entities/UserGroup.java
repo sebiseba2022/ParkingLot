@@ -3,19 +3,19 @@ package com.parking.parkinglot.entities;
 import jakarta.persistence.*;
 
 @Entity
-
+@Table(name = "usergroups")
 public class UserGroup {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 
     private String username;
 
-
+    @Column(name = "usergroup")
     private String userGroup;
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -38,5 +38,5 @@ public class UserGroup {
 
     public void setUserGroup(String userGroup) {
         this.userGroup = userGroup;
-    }
+}
 }
