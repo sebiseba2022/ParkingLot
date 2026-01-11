@@ -7,16 +7,15 @@ import jakarta.persistence.*;
 public class UserGroup {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "username")
     private String username;
 
-    @Column(name = "user_group")
+    @Column(name = "usergroup")
     private String userGroup;
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -39,5 +38,5 @@ public class UserGroup {
 
     public void setUserGroup(String userGroup) {
         this.userGroup = userGroup;
-    }
+}
 }

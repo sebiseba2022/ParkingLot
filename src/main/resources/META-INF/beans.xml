@@ -4,4 +4,9 @@
        xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_0.xsd"
        bean-discovery-mode="all">
 
+    <weld:scan xmlns:weld="http://jboss.org/schema/weld/beans">
+        <weld:exclude name="org.glassfish.soteria.**"/>
+        <weld:exclude name="com.sun.faces.**"/>
+    </weld:scan>
+
 </beans>
