@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "usergroups")
 public class UserGroup {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
