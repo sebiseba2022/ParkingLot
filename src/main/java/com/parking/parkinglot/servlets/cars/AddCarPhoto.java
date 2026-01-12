@@ -1,4 +1,4 @@
-package com.parking.parkinglot;
+package com.parking.parkinglot.servlets.cars;
 
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
@@ -27,7 +27,7 @@ public class AddCarPhoto extends HttpServlet {
         Long carId = Long.parseLong(request.getParameter("id"));
         CarDto car = carsBean.findById(carId);
         request.setAttribute("car", car);
-        request.getRequestDispatcher("/WEB-INF/pages/addCarPhoto.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/cars/addCarPhoto.jsp").forward(request, response);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class AddCarPhoto extends HttpServlet {
             CarDto car = carsBean.findById(carId);
             request.setAttribute("car", car);
             request.setAttribute("errorMessage", "File too large! Maximum size allowed is 800 KB.");
-            request.getRequestDispatcher("/WEB-INF/pages/addCarPhoto.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/pages/cars/addCarPhoto.jsp").forward(request, response);
             return;
         }
 

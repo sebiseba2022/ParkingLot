@@ -1,4 +1,4 @@
-package com.parking.parkinglot;
+package com.parking.parkinglot.servlets.cars;
 
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
@@ -31,7 +31,7 @@ public class Cars extends HttpServlet {
         int numberOfFreeParkingSpots = 10;
         request.setAttribute("numberOfFreeParkingSpots", numberOfFreeParkingSpots);
 
-        request.getRequestDispatcher("/WEB-INF/pages/cars.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/cars/cars.jsp").forward(request, response);
     }
 
     @Override

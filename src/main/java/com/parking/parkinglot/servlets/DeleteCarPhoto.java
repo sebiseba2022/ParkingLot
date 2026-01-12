@@ -1,4 +1,4 @@
-package com.parking.parkinglot;
+package com.parking.parkinglot.servlets;
 
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
